@@ -37,6 +37,12 @@ public class AutorService {
         return autorRepository.findById(id).map(this::mapToDTO);
     }
 
+    // OBTENER POR NOMBRE Y APELLIDO
+    public List<AutorResponseDTO> buscarPorNombreAndApellido(String nombreAutor, String apellidoAutor) {
+        return autorRepository.findByNombreAutorContainingIgnoreCaseAndApellidoAutorContainingIgnoreCase(nombreAutor, apellidoAutor)
+                .stream().map(this::mapToDTO).collect(Collectors.toList());
+    }
+
     // GUARDAR
     public AutorResponseDTO guardar(AutorRequestDTO dto){
 

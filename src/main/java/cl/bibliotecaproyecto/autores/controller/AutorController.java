@@ -2,6 +2,7 @@ package cl.bibliotecaproyecto.autores.controller;
 
 import cl.bibliotecaproyecto.autores.dto.AutorRequestDTO;
 import cl.bibliotecaproyecto.autores.dto.AutorResponseDTO;
+import cl.bibliotecaproyecto.autores.model.Autor;
 import cl.bibliotecaproyecto.autores.service.AutorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,12 @@ public class AutorController {
         return autorService.obtenerPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("nombreapellido")
+    public ResponseEntity<List<AutorResponseDTO>> buscarPorNombreAutoryApellidoAutor(
+            @RequestParam String nombreAutor,  @RequestParam String apellidoAutor) {
+        return ResponseEntity.ok(autorService.buscarPorNombreAndApellido(nombreAutor, apellidoAutor));
     }
 
     @PostMapping
